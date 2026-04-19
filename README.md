@@ -1,73 +1,73 @@
-# Welcome to your Lovable project
+# CourseQuery
 
-## Project info
+A retrieval-based Q&A tool that lets you ask questions about your specific course materials and get grounded, cited answers using Google Gemini File Search.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Features
 
-## How can I edit this code?
+- **Document Q&A**: Ask questions and get answers grounded in your uploaded materials
+- **Fallback Behavior**: Generates a response utilizing Google Gemini's general
+    knowledge if your course materials doesnot cover the question
+- **Citation Tracking**: Every answer includes source citations for transparency
+- **Message Search**: Filter through your conversation history
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Radix UI
+- **Backend**: Supabase Edge Functions
+- **Search & Answers**: Google Gemini 2.5 Flash with File Search
+- **Routing**: React Router
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js and npm
+- Supabase account and project
+- Google AI Studio account with Gemini API access and a File Search store with materials uploaded
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone the repository:
+```bash
+git clone <repo-url>
+cd coursequery
+```
 
-Follow these steps:
+2. Install dependencies:
+```bash
+npm install
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Fill in your values:
+- `VITE_SUPABASE_URL` — your Supabase project URL
+- `VITE_SUPABASE_PUBLISHABLE_KEY` — your Supabase anon/publishable key
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. Set up Supabase Edge Function secrets in your Supabase dashboard 
+   under Edge Functions → Secrets:
+- `GEMINI_API_KEY` — your Google Gemini API key
+- `GOOGLE_FILE_SEARCH_STORE_ID` — your Google File Search store ID
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+5. Deploy the edge function:
+```bash
+supabase functions deploy chat
+```
+
+6. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Currently Available Materials
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This instance currently has two documents uploaded to the File Search store:
 
-**Use GitHub Codespaces**
+- Turabian Style Citations Guide
+- Supply Chain Management
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Questions will be answered based on these materials only.
+Additional course materials will be added over time.

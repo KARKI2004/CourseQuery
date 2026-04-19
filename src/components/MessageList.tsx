@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { BookOpen } from 'lucide-react';
 import { Message } from '@/types/chat';
 import { ChatMessage } from './ChatMessage';
 
@@ -6,10 +7,11 @@ interface MessageListProps {
   messages: Message[];
   searchQuery: string;
   onViewCitations: (message: Message) => void;
+  onUseExample: (value: string) => void;
   isLoading: boolean;
 }
 
-export function MessageList({ messages, searchQuery, onViewCitations, isLoading }: MessageListProps) {
+export function MessageList({ messages, searchQuery, onViewCitations, onUseExample, isLoading }: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Filter messages by search query
@@ -24,13 +26,33 @@ export function MessageList({ messages, searchQuery, onViewCitations, isLoading 
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  const sampleQuestions = [
+    'Define Global Supply chain Management.',
+    'Give an example of a Turabian style citation.',
+  ];
+
   if (messages.length === 0) {
     return (
       <div className="flex-1 flex items-center justify-center p-8">
-        <div className="text-center max-w-md animate-fade-in">
-          <h3 className="font-serif text-xl font-semibold text-foreground">
-            Start with a question you have about your course
+        <div className="text-center max-w-lg animate-fade-in">
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-3xl bg-accent/10 text-primary shadow-soft">
+            <BookOpen className="h-6 w-6" />
+          </div>
+          <h3 className="font-serif text-2xl font-semibold text-foreground mb-2">
+            Ask anything about your uploaded course materials.
           </h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {sampleQuestions.map((question) => (
+              <button
+                key={question}
+                type="button"
+                onClick={() => onUseExample(question)}
+                className="rounded-full border border-border bg-background px-4 py-3 text-left text-sm text-foreground shadow-soft transition hover:border-primary/40 hover:bg-primary/10"
+              >
+                {question}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     );

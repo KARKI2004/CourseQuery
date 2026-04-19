@@ -4,17 +4,17 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
 interface MessageInputProps {
+  message: string;
+  setMessage: (value: string) => void;
   onSend: (message: string) => Promise<void>;
   isLoading: boolean;
   getCooldownRemaining: () => number;
 }
 
-export function MessageInput({ onSend, isLoading, getCooldownRemaining }: MessageInputProps) {
-  const [message, setMessage] = useState('');
+export function MessageInput({ message, setMessage, onSend, isLoading, getCooldownRemaining }: MessageInputProps) {
   const [cooldown, setCooldown] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  // Update cooldown timer
   useEffect(() => {
     const interval = setInterval(() => {
       setCooldown(getCooldownRemaining());
@@ -29,7 +29,6 @@ export function MessageInput({ onSend, isLoading, getCooldownRemaining }: Messag
     setError(null);
     try {
       await onSend(message);
-      setMessage('');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send message');
     }
@@ -57,15 +56,15 @@ export function MessageInput({ onSend, isLoading, getCooldownRemaining }: Messag
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="..."
-            className="min-h-[52px] max-h-[200px] resize-none bg-background border-border focus:ring-primary/20 pr-4"
+            placeholder="Ask a question about your course materials..."
+            className="min-h-[52px] max-h-[200px] resize-none bg-background border-border focus:ring-accent/30 pr-4"
             rows={1}
           />
         </div>
         <Button
           type="submit"
           disabled={isDisabled}
-          className="h-[52px] px-5 gradient-warm text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="h-[52px] px-5 bg-primary text-primary-foreground hover:bg-primary/90 transition disabled:opacity-50"
         >
           {isLoading ? (
             <Loader2 className="h-5 w-5 animate-spin" />

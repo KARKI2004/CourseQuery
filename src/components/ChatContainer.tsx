@@ -7,13 +7,14 @@ import { CitationsPanel } from './CitationsPanel';
 
 export function ChatContainer() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { 
-    messages, 
-    isLoading, 
-    activeCitations, 
-    sendMessage, 
+  const [draftMessage, setDraftMessage] = useState('');
+  const {
+    messages,
+    isLoading,
+    activeCitations,
+    sendMessage,
     viewCitations,
-    getCooldownRemaining 
+    getCooldownRemaining,
   } = useChat();
 
   return (
@@ -30,12 +31,20 @@ export function ChatContainer() {
           messages={messages}
           searchQuery={searchQuery}
           onViewCitations={viewCitations}
+          onUseExample={async (value) => {
+            await sendMessage(value);
+          }}
           isLoading={isLoading}
         />
         
         {/* Input */}
         <MessageInput
-          onSend={sendMessage}
+          message={draftMessage}
+          setMessage={setDraftMessage}
+          onSend={async (message) => {
+            await sendMessage(message);
+            setDraftMessage('');
+          }}
           isLoading={isLoading}
           getCooldownRemaining={getCooldownRemaining}
         />

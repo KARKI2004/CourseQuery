@@ -30,13 +30,13 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const GEMINI_API_KEY = Deno.env.get('LovableRag');
+    const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
     const FILE_SEARCH_STORE_ID = Deno.env.get('GOOGLE_FILE_SEARCH_STORE_ID');
 
     if (!GEMINI_API_KEY) {
-      console.error('LovableRag API key is not configured');
+      console.error('GEMINI_API_KEY is not configured');
       return new Response(
-        JSON.stringify({ error: 'LovableRag API key is not configured' }),
+        JSON.stringify({ error: 'GEMINI_API_KEY is not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

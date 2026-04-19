@@ -35,9 +35,9 @@ export function ChatMessage({ message, isLatest, onViewCitations }: ChatMessageP
       
       <div
         className={cn(
-          'max-w-[80%] rounded-2xl px-4 py-3 shadow-soft',
+          'max-w-[80%] rounded-3xl px-4 py-3 shadow-soft',
           isUser
-            ? 'bg-chat-user text-foreground'
+            ? 'bg-primary/10 text-foreground border border-primary/15'
             : 'bg-chat-assistant text-foreground border border-border'
         )}
       >
