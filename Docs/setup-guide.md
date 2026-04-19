@@ -126,7 +126,7 @@ else:
 ```
 
 
-## 3. Verifying Materials
+## 3. Verify Uploaded Materials
 
 ```
 from google import genai
