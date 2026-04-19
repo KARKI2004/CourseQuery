@@ -42,8 +42,8 @@ export function ChatContainer() {
           message={draftMessage}
           setMessage={setDraftMessage}
           onSend={async (message) => {
-            await sendMessage(message);
             setDraftMessage('');
+            await sendMessage(message);
           }}
           isLoading={isLoading}
           getCooldownRemaining={getCooldownRemaining}
